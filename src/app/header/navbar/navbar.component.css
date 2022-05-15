@@ -1,0 +1,67 @@
+.navabar-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* .navbar-shape {
+  flex: 1;
+  width: 0;
+  height: 0;
+  border-top: 50px solid red;
+  border-right: 50px solid transparent;
+} */
+
+.navbar-image {
+  flex-basis: 100px;
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+
+.navbar-title {
+  flex-basis: 150px;
+  flex-grow: 0;
+  flex-shrink: 1;
+}
+
+.navbar_title {
+  color: hsl(0, 0%, 86%);
+}
+
+.navbar-pages {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.navbar-page {
+  flex-basis: 90px;
+  flex-grow: 0;
+  flex-shrink: 1;
+}
+
+.navbar-contact {
+  flex-basis: 100px;
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+
+.image-brand {
+  max-width: 60px;
+  border-radius: 50%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.image-contact {
+  max-width: 80px;
+  border-radius: 50%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 8px;
+  padding-right: 8px;
+}

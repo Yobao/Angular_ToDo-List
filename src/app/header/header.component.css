@@ -1,0 +1,16 @@
+.header-navbar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: left;
+  padding: 8px;
+  background-color: hsl(0, 0%, 14%);
+}
+
+.header-timer {
+  display: flex;
+  align-items: center;
+  justify-content: right;
+  text-align: right;
+  padding: 8px;
+}

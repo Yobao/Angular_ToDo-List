@@ -11,9 +11,22 @@ import { ToDoComponent } from './pages/to-do/to-do.component';
 import { DoneComponent } from './pages/done/done.component';
 import { TimerComponent } from './header/timer/timer.component';
 import { HomeComponent } from './pages/home/home.component';
+import { HeaderButtonComponent } from './components/header-button/header-button.component';
 
 @NgModule({
-  declarations: [AppComponent, TitleComponent, InputComponent, HeaderComponent, NavbarComponent, CreateTaskComponent, ToDoComponent, DoneComponent, TimerComponent, HomeComponent],
+  declarations: [
+    AppComponent,
+    TitleComponent,
+    InputComponent,
+    HeaderComponent,
+    NavbarComponent,
+    CreateTaskComponent,
+    ToDoComponent,
+    DoneComponent,
+    TimerComponent,
+    HomeComponent,
+    HeaderButtonComponent,
+  ],
   imports: [BrowserModule],
   providers: [],
   bootstrap: [AppComponent],
