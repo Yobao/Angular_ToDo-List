@@ -13,6 +13,10 @@ export class NavbarComponent implements OnInit {
   toDo: string = 'To Do';
   done: string = 'Done';
 
+  visitGit() {
+    window.open('https://github.com/Yobao');
+  }
+
   constructor() {}
 
   ngOnInit(): void {}

@@ -3,3 +3,8 @@
   font-weight: bold;
   font-size: large;
 }
+
+.navbar_button:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}

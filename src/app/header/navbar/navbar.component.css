@@ -37,7 +37,7 @@
 }
 
 .navbar-page {
-  flex-basis: 90px;
+  flex-basis: 100px;
   flex-grow: 0;
   flex-shrink: 1;
 }
@@ -56,6 +56,10 @@
   margin-right: auto;
 }
 
+.image-brand:hover {
+  cursor: pointer;
+}
+
 .image-contact {
   max-width: 80px;
   border-radius: 50%;
@@ -64,4 +68,8 @@
   margin-right: auto;
   padding-left: 8px;
   padding-right: 8px;
+}
+
+.image-contact:hover {
+  cursor: pointer;
 }
