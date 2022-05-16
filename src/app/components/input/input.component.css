@@ -1,0 +1,9 @@
+.input-container {
+  margin: auto;
+  text-align: left;
+  max-width: 300px;
+}
+
+.input {
+  padding: 4px;
+}
