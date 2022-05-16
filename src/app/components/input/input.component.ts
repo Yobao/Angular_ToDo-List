@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-input',
@@ -9,6 +9,14 @@ export class InputComponent implements OnInit {
   constructor() {}
 
   @Input() placeH?: string;
+  @Input() id?: string;
+  @Input() title?: string;
+
+  @Output() task = new EventEmitter<string>();
+
+  showTaskName(val: any) {
+    this.task.emit(val);
+  }
 
   ngOnInit(): void {}
 }

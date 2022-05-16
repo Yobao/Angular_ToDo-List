@@ -1,4 +1,11 @@
 <div class="input-container">
-  <h3>Test Header</h3>
-  <input placeholder="{{ placeH }}" class="input"/>
+  <h3>{{ title }}</h3>
+  <input
+    type="text"
+    placeholder="{{ placeH }}"
+    class="input"
+    id="{{ id }}"
+    #inputVal
+    (keyup)="showTaskName(inputVal)"
+  />
 </div>

@@ -4,6 +4,22 @@
 <div>
   <h3>Choose Priority</h3>
 </div>
-<app-input [placeH]="placeHolderTask"></app-input>
-<app-input [placeH]="placeHolderDesc"></app-input>
-<button type="button" class="">Send values.</button>
+<app-input
+  [placeH]="placeHolderTask"
+  [id]="inputTaskID"
+  [title]="titleTask"
+  (task)="showVals($event)"
+></app-input>
+<app-input
+  [placeH]="placeHolderDesc"
+  [id]="inputDesID"
+  [title]="titleDesc"
+  (task)="showVals($event)"
+></app-input>
+<div class="butt-container">
+  <div class="butt_container">
+    <button type="button" class="" (click)="handleCreateTask()">
+      Send values.
+    </button>
+  </div>
+</div>
