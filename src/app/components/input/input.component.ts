@@ -14,7 +14,7 @@ export class InputComponent implements OnInit {
 
   @Output() task = new EventEmitter<string>();
 
-  showTaskName(val: any) {
+  setTask(val: any) {
     this.task.emit(val);
   }
 
