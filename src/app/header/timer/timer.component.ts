@@ -15,21 +15,6 @@ export class TimerComponent implements OnInit, OnDestroy {
   Months = MONTH_LIST;
   Days = DAY_LIST;
 
-  /*   Months: string[] = [
-    'Január',
-    'Február',
-    'Marec',
-    'Apríl',
-    'Máj',
-    'Jún',
-    'Júl',
-    'August',
-    'September',
-    'Október',
-    'November',
-    'December',
-  ]; */
-
   ngOnInit(): void {
     setInterval(() => {
       this.now = new Date(Date.now());

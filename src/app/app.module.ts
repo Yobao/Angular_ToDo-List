@@ -16,6 +16,7 @@ import { DoneComponent } from './pages/done/done.component';
 import { RequestsComponent } from './pages/requests/requests.component';
 
 import { FormsModule } from '@angular/forms';
+import { ButtonComponent } from './components/button/button.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -39,6 +40,7 @@ const routes: Routes = [
     ToDoComponent,
     DoneComponent,
     RequestsComponent,
+    ButtonComponent,
   ],
   imports: [BrowserModule, RouterModule.forRoot(routes), FormsModule],
   exports: [RouterModule],

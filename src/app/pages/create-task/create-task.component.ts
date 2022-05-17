@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { InputComponent } from 'src/app/components/input/input.component';
+import { ButtonComponent } from 'src/app/components/button/button.component';
 import { MONTH_DAY } from './DATA';
 import { Test, Month } from './interface';
 
@@ -9,12 +10,10 @@ import { Test, Month } from './interface';
   styleUrls: ['./create-task.component.css'],
 })
 export class CreateTaskComponent implements OnInit {
-  placeHolderTask: string = 'Name of the task';
-  placeHolderDesc: string = 'Description - max 300 characters.';
-
-  inputTaskID: string = 'taskName';
-  inputDesID: string = 'des';
-
+/*   placeHolderTask: string = 'Name of the task';
+  placeHolderDesc: string = 'Description - max 300 characters.'; */
+/*   inputTaskID: string = 'taskName';
+  inputDesID: string = 'des'; */
   titleTask: string = 'Task Name';
   titleDesc: string = 'Description';
 
@@ -26,6 +25,7 @@ export class CreateTaskComponent implements OnInit {
 
   public months: Array<Month> = MONTH_DAY;
   days!: number;
+  selectionDay!: number | string;
   i!: number;
   daysArray: string[] = [];
 
@@ -36,6 +36,7 @@ export class CreateTaskComponent implements OnInit {
   }
 
   handleUpdateDays(): void {
+    this.selectionDay = '';
     this.daysArray = [];
     for (this.i = 0; this.i < this.days; this.i++) {
       this.daysArray.push((this.i + 1).toString());
