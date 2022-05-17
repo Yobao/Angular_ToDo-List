@@ -1,6 +1,6 @@
 import { NodeWithI18n } from '@angular/compiler';
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { MONTHS, DAYS } from 'src/app/pages/create-task/DATAS';
+import { MONTH_LIST, DAY_LIST } from 'src/app/pages/create-task/DATA';
 
 @Component({
   selector: 'header-timer',
@@ -12,8 +12,8 @@ export class TimerComponent implements OnInit, OnDestroy {
 
   dateTime!: string;
   now: Date = new Date(Date.now());
-  Months = MONTHS;
-  Days = DAYS;
+  Months = MONTH_LIST;
+  Days = DAY_LIST;
 
   /*   Months: string[] = [
     'Január',

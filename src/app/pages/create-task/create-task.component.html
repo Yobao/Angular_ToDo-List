@@ -16,10 +16,12 @@
         </option>
       </select>
     </div>
+
     <div class="choose-date">
       <h4>Day</h4>
       <select class="selection">
-        <option *ngFor="let day of test; let i = index">
+        <option></option>
+        <option *ngFor="let day of daysArray; let i = index">
           {{ day }}
         </option>
       </select>
