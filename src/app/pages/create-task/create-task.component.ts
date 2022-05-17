@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { InputComponent } from 'src/app/components/input/input.component';
-import { Test } from './interface';
+import { MONTHS } from './DATAS';
+import { Test, Month } from './interface';
 
 @Component({
   selector: 'app-create-task',
@@ -8,6 +9,8 @@ import { Test } from './interface';
   styleUrls: ['./create-task.component.css'],
 })
 export class CreateTaskComponent implements OnInit {
+  //Months = MONTHS;
+
   placeHolderTask: string = 'Name of the task';
   placeHolderDesc: string = 'Description - max 300 characters.';
 
@@ -23,10 +26,71 @@ export class CreateTaskComponent implements OnInit {
   tasks: any;
   task: Test = { name: '', description: '' };
 
+  public months: Array<Month> = [
+    {
+      name: 'Január',
+      days: 31,
+    },
+    {
+      name: 'Február',
+      days: 28,
+    },
+    {
+      name: 'Marec',
+      days: 31,
+    },
+    {
+      name: 'Apríl',
+      days: 30,
+    },
+    {
+      name: 'Máj',
+      days: 31,
+    },
+    {
+      name: 'Jún',
+      days: 30,
+    },
+    {
+      name: 'Júl',
+      days: 31,
+    },
+    {
+      name: 'August',
+      days: 31,
+    },
+    {
+      name: 'September',
+      days: 30,
+    },
+    {
+      name: 'Október',
+      days: 31,
+    },
+    {
+      name: 'November',
+      days: 30,
+    },
+    {
+      name: 'December',
+      days: 31,
+    },
+  ];
+  days!: number;
+  i!: number;
+  test: string[] = [];
+
   setTask(inputVal: any) {
     inputVal.id === 'des'
       ? (this.taskDesc = inputVal.value)
       : (this.taskName = inputVal.value);
+  }
+
+  handleUpdateDays(): void {
+    this.test = [];
+    for (this.i = 0; this.i < this.days; this.i++) {
+      this.test.push((this.i + 1).toString());
+    }
   }
 
   handleCreateTask(): void {

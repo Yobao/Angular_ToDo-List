@@ -1,3 +1,20 @@
+.choose-date-container {
+  display: flex;
+  max-width: 300px;
+  margin: auto;
+  align-content: center;
+  justify-content: left;
+  text-align: left;
+}
+
+.choose-date {
+  flex: 1;
+}
+
+.selection {
+  width: 100px;
+}
+
 .butt-container {
   padding: 20px;
 }
@@ -6,4 +23,16 @@
   max-width: 300px;
   margin: auto;
   padding: 8px;
+}
+
+h3 {
+  margin: 0px;
+  padding-top: 8px;
+  padding-bottom: 16px;
+}
+
+h4 {
+  margin: 0px;
+  padding-top: 8px;
+  padding-bottom: 8px;
 }

@@ -1,5 +1,6 @@
 import { NodeWithI18n } from '@angular/compiler';
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { MONTHS, DAYS } from 'src/app/pages/create-task/DATAS';
 
 @Component({
   selector: 'header-timer',
@@ -10,20 +11,11 @@ export class TimerComponent implements OnInit, OnDestroy {
   constructor() {}
 
   dateTime!: string;
-
   now: Date = new Date(Date.now());
+  Months = MONTHS;
+  Days = DAYS;
 
-  Days: string[] = [
-    'Nedeľa',
-    'Pondelok',
-    'Utorok',
-    'Streda',
-    'Štvrtok',
-    'Piatok',
-    'Sobota',
-  ];
-
-  Months: string[] = [
+  /*   Months: string[] = [
     'Január',
     'Február',
     'Marec',
@@ -36,7 +28,7 @@ export class TimerComponent implements OnInit, OnDestroy {
     'Október',
     'November',
     'December',
-  ];
+  ]; */
 
   ngOnInit(): void {
     setInterval(() => {

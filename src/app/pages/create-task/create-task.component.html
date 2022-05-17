@@ -1,9 +1,36 @@
 <div>
-  <h3>Choose Date</h3>
+  <div class="choose-date-container"><h3>Choose Due Date</h3></div>
+  <div class="choose-date-container">
+    <div class="choose-date">
+      <h4>Month</h4>
+      <select
+        [(ngModel)]="days"
+        class="selection"
+        (change)="handleUpdateDays()"
+      >
+        <option
+          *ngFor="let month of months; let i = index"
+          value="{{ month.days }}"
+        >
+          {{ month.name }}
+        </option>
+      </select>
+    </div>
+    <div class="choose-date">
+      <h4>Day</h4>
+      <select class="selection">
+        <option *ngFor="let day of test; let i = index">
+          {{ day }}
+        </option>
+      </select>
+    </div>
+  </div>
 </div>
+
 <div>
   <h3>Choose Priority</h3>
 </div>
+
 <app-input
   [placeH]="placeHolderTask"
   [id]="inputTaskID"
@@ -16,6 +43,7 @@
   [title]="titleDesc"
   (task)="setTask($event)"
 ></app-input>
+
 <div class="butt-container">
   <div class="butt_container">
     <button type="button" class="" (click)="handleCreateTask()">
@@ -23,3 +51,7 @@
     </button>
   </div>
 </div>
+
+<!-- <option *ngFor="let _ of [].constructor(days); let i = index">
+  {{ i + 1 }}
+</option> -->

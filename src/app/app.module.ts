@@ -15,6 +15,8 @@ import { ToDoComponent } from './pages/to-do/to-do.component';
 import { DoneComponent } from './pages/done/done.component';
 import { RequestsComponent } from './pages/requests/requests.component';
 
+import { FormsModule } from '@angular/forms';
+
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'create-task', component: CreateTaskComponent },
@@ -38,7 +40,7 @@ const routes: Routes = [
     DoneComponent,
     RequestsComponent,
   ],
-  imports: [BrowserModule, RouterModule.forRoot(routes)],
+  imports: [BrowserModule, RouterModule.forRoot(routes), FormsModule],
   exports: [RouterModule],
   providers: [],
   bootstrap: [AppComponent],
