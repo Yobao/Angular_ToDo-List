@@ -8,10 +8,8 @@
         class="selection"
         (change)="handleUpdateDays()"
       >
-        <option
-          *ngFor="let month of months; let i = index"
-          value="{{ month.days }}"
-        >
+        <option [ngValue]="undefined" selected>Máj</option>
+        <option *ngFor="let month of months" value="{{ month.days }}">
           {{ month.name }}
         </option>
       </select>
@@ -19,9 +17,8 @@
 
     <div class="choose-date">
       <h4>Day</h4>
-      <select class="selection" [(ngModel)]="selectionDay">
-        <option></option>
-        <option *ngFor="let day of daysArray; let i = index">
+      <select class="selection">
+        <option *ngFor="let day of daysArray">
           {{ day }}
         </option>
       </select>
@@ -45,13 +42,13 @@
 <app-input
   [placeH]="'Name of the task'"
   [id]="'taskName'"
-  [title]="titleTask"
+  [title]="'Task Name'"
   (task)="setTask($event)"
 ></app-input>
 <app-input
   [placeH]="'Description - max 300 characters.'"
   [id]="'des'"
-  [title]="titleDesc"
+  [title]="'Description'"
   (task)="setTask($event)"
 ></app-input>
 

@@ -2,7 +2,8 @@ import { Component, OnInit, Input } from '@angular/core';
 import { InputComponent } from 'src/app/components/input/input.component';
 import { ButtonComponent } from 'src/app/components/button/button.component';
 import { MONTH_DAY } from './DATA';
-import { Test, Month } from './interface';
+import { Test, Month, Date } from './interface';
+import { MyserviceService } from 'src/app/services/myservice.service';
 
 @Component({
   selector: 'app-create-task',
@@ -10,23 +11,15 @@ import { Test, Month } from './interface';
   styleUrls: ['./create-task.component.css'],
 })
 export class CreateTaskComponent implements OnInit {
-/*   placeHolderTask: string = 'Name of the task';
-  placeHolderDesc: string = 'Description - max 300 characters.'; */
-/*   inputTaskID: string = 'taskName';
-  inputDesID: string = 'des'; */
-  titleTask: string = 'Task Name';
-  titleDesc: string = 'Description';
-
   taskName?: string;
   taskDesc?: string;
-
+  i!: number;
   tasks: any;
-  task: Test = { name: '', description: '' };
-
-  public months: Array<Month> = MONTH_DAY;
   days!: number;
   selectionDay!: number | string;
-  i!: number;
+
+  public months: Array<Month> = MONTH_DAY;
+  task: Test = { name: '', description: '' };
   daysArray: string[] = [];
 
   setTask(inputVal: any) {
@@ -36,7 +29,6 @@ export class CreateTaskComponent implements OnInit {
   }
 
   handleUpdateDays(): void {
-    this.selectionDay = '';
     this.daysArray = [];
     for (this.i = 0; this.i < this.days; this.i++) {
       this.daysArray.push((this.i + 1).toString());
@@ -58,7 +50,15 @@ export class CreateTaskComponent implements OnInit {
     localStorage.setItem('Task List', JSON.stringify(this.tasks));
   }
 
-  constructor() {}
+  constructor(private service: MyserviceService) {}
 
-  ngOnInit(): void {}
+  /*   getString() {
+    console.log(this.service.getDate());
+  } */
+
+  ngOnInit(): void {
+    setInterval(() => {
+      this.service.getDate();
+    }, 1000);
+  }
 }

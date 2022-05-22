@@ -1,1 +1,3 @@
-<p class="timer">{{ dateTime }}</p>
+<p class="timer">
+  {{ date | date: "EEEE, d. MMMM yyy - HH:mm:ss" }}
+</p>
