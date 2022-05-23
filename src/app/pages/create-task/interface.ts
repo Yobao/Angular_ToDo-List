@@ -1,4 +1,4 @@
-export interface Test {
+export interface Task {
   name: string;
   description: string;
 }

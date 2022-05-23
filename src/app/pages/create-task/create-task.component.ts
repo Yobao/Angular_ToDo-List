@@ -1,26 +1,32 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { InputComponent } from 'src/app/components/input/input.component';
 import { ButtonComponent } from 'src/app/components/button/button.component';
 import { MONTH_DAY } from './DATA';
-import { Test, Month, Date } from './interface';
+import { Task, Month } from './interface';
 import { MyserviceService } from 'src/app/services/myservice.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-create-task',
   templateUrl: './create-task.component.html',
   styleUrls: ['./create-task.component.css'],
 })
-export class CreateTaskComponent implements OnInit {
+export class CreateTaskComponent implements OnInit, OnDestroy {
   taskName?: string;
   taskDesc?: string;
   i!: number;
   tasks: any;
-  days!: number;
-  selectionDay!: number | string;
+  days!: number | string;
 
   public months: Array<Month> = MONTH_DAY;
-  task: Test = { name: '', description: '' };
+  monthsUpdated: Month[] = [];
+  task: Task = { name: '', description: '' };
   daysArray: string[] = [];
+
+  date!: Date;
+  subscription!: Subscription;
+
+  constructor(private data: MyserviceService) {}
 
   setTask(inputVal: any) {
     inputVal.id === 'des'
@@ -28,7 +34,7 @@ export class CreateTaskComponent implements OnInit {
       : (this.taskName = inputVal.value);
   }
 
-  handleUpdateDays(): void {
+  handleUpdateDays(e: any): void {
     this.daysArray = [];
     for (this.i = 0; this.i < this.days; this.i++) {
       this.daysArray.push((this.i + 1).toString());
@@ -50,15 +56,21 @@ export class CreateTaskComponent implements OnInit {
     localStorage.setItem('Task List', JSON.stringify(this.tasks));
   }
 
-  constructor(private service: MyserviceService) {}
-
-  /*   getString() {
-    console.log(this.service.getDate());
-  } */
-
   ngOnInit(): void {
-    setInterval(() => {
-      this.service.getDate();
-    }, 1000);
+    this.subscription = this.data.currentDate.subscribe(
+      (date) => (this.date = date)
+    );
+
+    this.months.map((month, i) => {
+      if (i >= this.date.getMonth()) {
+        this.monthsUpdated.push(month);
+      }
+    });
+
+    this.days = this.monthsUpdated[0].name;
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 }

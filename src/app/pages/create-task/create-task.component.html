@@ -5,11 +5,13 @@
       <h4>Month</h4>
       <select
         [(ngModel)]="days"
+        #test
         class="selection"
-        (change)="handleUpdateDays()"
+        (change)="handleUpdateDays(null)"
       >
-        <option [ngValue]="undefined" selected>Máj</option>
-        <option *ngFor="let month of months" value="{{ month.days }}">
+        <!-- <option [ngValue]="test" selected>Máj</option> -->
+        <!-- <option *ngFor="let month of monthsUpdated" value="{{ month.days }}"> -->
+        <option *ngFor="let month of monthsUpdated" [value]="month.days">
           {{ month.name }}
         </option>
       </select>
