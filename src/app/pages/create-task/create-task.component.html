@@ -4,23 +4,28 @@
     <div class="choose-date">
       <h4>Month</h4>
       <select
-        [(ngModel)]="days"
-        #test
+        [(ngModel)]="defaultMonth"
         class="selection"
-        (change)="handleUpdateDays(null)"
+        (change)="handleUpdateDays(defaultMonth)"
       >
         <!-- <option [ngValue]="test" selected>Máj</option> -->
         <!-- <option *ngFor="let month of monthsUpdated" value="{{ month.days }}"> -->
-        <option *ngFor="let month of monthsUpdated" [value]="month.days">
+        <option
+          *ngFor="let month of monthsUpdated"
+          [value]="month.name"
+          [id]="month.days"
+        >
           {{ month.name }}
         </option>
       </select>
     </div>
 
+    <!-- <input type="date"> -->
+
     <div class="choose-date">
       <h4>Day</h4>
-      <select class="selection">
-        <option *ngFor="let day of daysArray">
+      <select class="selection" [(ngModel)]="defaultDay">
+        <option *ngFor="let day of daysArray" [value]="day">
           {{ day }}
         </option>
       </select>

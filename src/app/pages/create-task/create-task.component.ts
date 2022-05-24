@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { InputComponent } from 'src/app/components/input/input.component';
 import { ButtonComponent } from 'src/app/components/button/button.component';
-import { MONTH_DAY } from './DATA';
+import { MONTH_DAY, MONTH_LIST } from './DATA';
 import { Task, Month } from './interface';
 import { MyserviceService } from 'src/app/services/myservice.service';
 import { Subscription } from 'rxjs';
@@ -17,6 +17,8 @@ export class CreateTaskComponent implements OnInit, OnDestroy {
   i!: number;
   tasks: any;
   days!: number | string;
+  defaultMonth!: string;
+  defaultDay!: number;
 
   public months: Array<Month> = MONTH_DAY;
   monthsUpdated: Month[] = [];
@@ -28,17 +30,46 @@ export class CreateTaskComponent implements OnInit, OnDestroy {
 
   constructor(private data: MyserviceService) {}
 
+  ngOnInit(): void {
+    this.subscription = this.data.currentDate.subscribe(
+      (date) => (this.date = date)
+    );
+    this.defaultDay = this.date.getDate();
+
+    this.months.map((month, i) => {
+      if (i >= this.date.getMonth()) {
+        this.monthsUpdated.push(month);
+      }
+    });
+
+    this.defaultMonth = this.monthsUpdated[0].name;
+    this.handleUpdateDays(this.defaultMonth);
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
+
+  handleUpdateDays(e: string): void {
+    this.daysArray = [];
+
+    for (this.i = 0; this.i < MONTH_LIST.length; this.i++) {
+      if (e === MONTH_LIST[this.i]) {
+        this.days = this.months[this.i].days;
+      }
+    }
+
+    this.defaultDay =
+      e === this.monthsUpdated[0].name ? this.date.getDate() : 1;
+    for (this.i = this.defaultDay - 1; this.i < this.days; this.i++) {
+      this.daysArray.push((this.i + 1).toString());
+    }
+  }
+
   setTask(inputVal: any) {
     inputVal.id === 'des'
       ? (this.taskDesc = inputVal.value)
       : (this.taskName = inputVal.value);
-  }
-
-  handleUpdateDays(e: any): void {
-    this.daysArray = [];
-    for (this.i = 0; this.i < this.days; this.i++) {
-      this.daysArray.push((this.i + 1).toString());
-    }
   }
 
   handleCreateTask(): void {
@@ -54,23 +85,5 @@ export class CreateTaskComponent implements OnInit, OnDestroy {
     this.tasks = JSON.parse(localStorage.getItem('Task List')!);
     this.tasks.push(this.task);
     localStorage.setItem('Task List', JSON.stringify(this.tasks));
-  }
-
-  ngOnInit(): void {
-    this.subscription = this.data.currentDate.subscribe(
-      (date) => (this.date = date)
-    );
-
-    this.months.map((month, i) => {
-      if (i >= this.date.getMonth()) {
-        this.monthsUpdated.push(month);
-      }
-    });
-
-    this.days = this.monthsUpdated[0].name;
-  }
-
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();
   }
 }
