@@ -22,11 +22,17 @@ export class CreateTaskComponent implements OnInit, OnDestroy {
 
   public months: Array<Month> = MONTH_DAY;
   monthsUpdated: Month[] = [];
-  task: Task = { name: '', description: '' };
+  task: Task = {
+    name: '',
+    description: '',
+    day: this.defaultDay,
+    month: this.defaultMonth,
+  };
   daysArray: string[] = [];
 
   date!: Date;
   subscription!: Subscription;
+  buttonActive: number = 1;
 
   constructor(private data: MyserviceService) {}
 
@@ -50,9 +56,12 @@ export class CreateTaskComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
+  /*   setDay(e: number) {
+    console.log(e, this.defaultDay);
+  } */
+
   handleUpdateDays(e: string): void {
     this.daysArray = [];
-
     for (this.i = 0; this.i < MONTH_LIST.length; this.i++) {
       if (e === MONTH_LIST[this.i]) {
         this.days = this.months[this.i].days;
@@ -74,10 +83,20 @@ export class CreateTaskComponent implements OnInit, OnDestroy {
 
   handleCreateTask(): void {
     //localStorage.clear();
-    if (!this.taskName || !this.taskDesc)
+    if (
+      !this.taskName ||
+      !this.taskDesc ||
+      !this.defaultDay ||
+      !this.defaultMonth
+    )
       return alert('Please, fill out all neccessary fields!');
 
-    this.task = { name: this.taskName, description: this.taskDesc };
+    this.task = {
+      name: this.taskName,
+      description: this.taskDesc,
+      day: this.defaultDay,
+      month: this.defaultMonth,
+    };
     if (!localStorage.getItem('Task List')) {
       return localStorage.setItem('Task List', JSON.stringify([this.task]));
     }

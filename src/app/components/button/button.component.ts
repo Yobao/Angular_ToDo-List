@@ -6,9 +6,15 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./button.component.css'],
 })
 export class ButtonComponent implements OnInit {
+  buttonActivate!: string;
+
   @Input() text!: string;
 
   constructor() {}
 
   ngOnInit(): void {}
+
+  onPriorityClick(e: any) {
+    this.buttonActivate = e;
+  }
 }

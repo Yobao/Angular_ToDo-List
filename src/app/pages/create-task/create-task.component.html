@@ -8,8 +8,6 @@
         class="selection"
         (change)="handleUpdateDays(defaultMonth)"
       >
-        <!-- <option [ngValue]="test" selected>Máj</option> -->
-        <!-- <option *ngFor="let month of monthsUpdated" value="{{ month.days }}"> -->
         <option
           *ngFor="let month of monthsUpdated"
           [value]="month.name"
@@ -19,8 +17,6 @@
         </option>
       </select>
     </div>
-
-    <!-- <input type="date"> -->
 
     <div class="choose-date">
       <h4>Day</h4>
