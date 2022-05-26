@@ -5,7 +5,6 @@
     placeholder="{{ placeH }}"
     class="input"
     id="{{ id }}"
-    #inputVal
-    (keyup)="setTask(inputVal)"
+    (input)="setTask($event)"
   />
 </div>

@@ -2,7 +2,9 @@
   <button
     #button
     [ngClass]="{ 'button-active': buttonActivate === button.innerText }"
+    class="button"
     (click)="onPriorityClick(button.innerText)"
+    [value]="value"
   >
     {{ text }}
   </button>

@@ -12,10 +12,10 @@ export class InputComponent implements OnInit {
   @Input() id?: string;
   @Input() title?: string;
 
-  @Output() task = new EventEmitter<string>();
+  @Output() task = new EventEmitter<Event>();
 
-  setTask(val: any) {
-    this.task.emit(val);
+  setTask(event: Event) {
+    this.task.emit(event);
   }
 
   ngOnInit(): void {}

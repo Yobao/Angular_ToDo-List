@@ -9,12 +9,15 @@ export class ButtonComponent implements OnInit {
   buttonActivate!: string;
 
   @Input() text!: string;
+  @Input() value!: string;
 
   constructor() {}
 
   ngOnInit(): void {}
 
-  onPriorityClick(e: any) {
-    this.buttonActivate = e;
+  onPriorityClick(e: string) {
+    this.buttonActivate = this.buttonActivate === e ? '' : e;
+    //this.buttonActivate = e;
+    console.log(e, this.buttonActivate);
   }
 }

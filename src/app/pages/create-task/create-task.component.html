@@ -34,12 +34,16 @@
     <h3>Choose Priority</h3>
   </div>
 
-  <div class="choose-date-container">
+  <div class="choose-date-container" *ngFor="let btn of priorityButtons">
+    <app-button [text]="btn.text" [value]="btn.value"></app-button>
+  </div>
+
+  <!--   <div class="choose-date-container">
     <app-button [text]="'Urgent'"></app-button>
     <app-button [text]="'High'"></app-button>
     <app-button [text]="'Low'"></app-button>
     <app-button [text]="'No Priority'"></app-button>
-  </div>
+  </div> -->
 </div>
 
 <app-input

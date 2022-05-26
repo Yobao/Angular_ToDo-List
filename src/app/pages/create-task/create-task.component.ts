@@ -34,6 +34,13 @@ export class CreateTaskComponent implements OnInit, OnDestroy {
   subscription!: Subscription;
   buttonActive: number = 1;
 
+  priorityButtons = [
+    { text: 'Urgent', value: 'btn-urgent' },
+    { text: 'High', value: 'btn-high' },
+    { text: 'Low', value: 'btn-low' },
+    { text: 'No priority', value: 'btn-no' },
+  ];
+
   constructor(private data: MyserviceService) {}
 
   ngOnInit(): void {
@@ -56,10 +63,6 @@ export class CreateTaskComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
-  /*   setDay(e: number) {
-    console.log(e, this.defaultDay);
-  } */
-
   handleUpdateDays(e: string): void {
     this.daysArray = [];
     for (this.i = 0; this.i < MONTH_LIST.length; this.i++) {
@@ -75,10 +78,10 @@ export class CreateTaskComponent implements OnInit, OnDestroy {
     }
   }
 
-  setTask(inputVal: any) {
-    inputVal.id === 'des'
-      ? (this.taskDesc = inputVal.value)
-      : (this.taskName = inputVal.value);
+  setTask(event: Event) {
+    (<HTMLInputElement>event.target).id === 'des'
+      ? (this.taskDesc = (<HTMLInputElement>event.target).value)
+      : (this.taskName = (<HTMLInputElement>event.target).value);
   }
 
   handleCreateTask(): void {
