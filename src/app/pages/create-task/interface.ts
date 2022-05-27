@@ -14,3 +14,15 @@ export interface Date {
   month: string;
   day: any;
 }
+
+interface TempPrioButtons {
+  i: number;
+  name: string;
+  color: string;
+  status: number;
+}
+
+export interface PrioButtons {
+  buttons: { i: number; name: string; color: string; status: number }[];
+  history: any;
+}

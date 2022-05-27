@@ -1,11 +1,9 @@
 <div>
   <button
-    #button
-    [ngClass]="{ 'button-active': buttonActivate === button.innerText }"
+    [ngStyle]="{ 'background-color': status ? color : '' }"
     class="button"
-    (click)="onPriorityClick(button.innerText)"
-    [value]="value"
+    (click)="onPriorityClick(i)"
   >
-    {{ text }}
+    {{ name }}
   </button>
 </div>

@@ -1,9 +1,10 @@
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { InputComponent } from 'src/app/components/input/input.component';
 import { ButtonComponent } from 'src/app/components/button/button.component';
-import { MONTH_DAY, MONTH_LIST } from './DATA';
-import { Task, Month } from './interface';
+import { MONTH_DAY, MONTH_LIST, PRIO_BUTTONS } from './DATA';
+import { Task, Month, PrioButtons } from './interface';
 import { MyserviceService } from 'src/app/services/myservice.service';
+import { PrioButtonsService } from 'src/app/services/prio-buttons.service';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -15,6 +16,7 @@ export class CreateTaskComponent implements OnInit, OnDestroy {
   taskName?: string;
   taskDesc?: string;
   i!: number;
+  color!: string;
   tasks: any;
   days!: number | string;
   defaultMonth!: string;
@@ -32,31 +34,33 @@ export class CreateTaskComponent implements OnInit, OnDestroy {
 
   date!: Date;
   subscription!: Subscription;
-  buttonActive: number = 1;
+  priorityButtonActive: number = 1; // ????????
+  priorityButtons!: PrioButtons;
 
-  priorityButtons = [
-    { text: 'Urgent', value: 'btn-urgent' },
-    { text: 'High', value: 'btn-high' },
-    { text: 'Low', value: 'btn-low' },
-    { text: 'No priority', value: 'btn-no' },
-  ];
-
-  constructor(private data: MyserviceService) {}
+  constructor(
+    private dataDate: MyserviceService,
+    private dataPrioButtons: PrioButtonsService
+  ) {}
 
   ngOnInit(): void {
-    this.subscription = this.data.currentDate.subscribe(
+    //Handle default month/day & date arrays...
+    //Not elegant solution to push months into new array...REFACTOR
+    this.subscription = this.dataDate.currentDate.subscribe(
       (date) => (this.date = date)
     );
     this.defaultDay = this.date.getDate();
-
     this.months.map((month, i) => {
       if (i >= this.date.getMonth()) {
         this.monthsUpdated.push(month);
       }
     });
-
     this.defaultMonth = this.monthsUpdated[0].name;
     this.handleUpdateDays(this.defaultMonth);
+
+    //Handle priority buttons...
+    this.subscription = this.dataPrioButtons.currentButtonState.subscribe(
+      (data) => (this.priorityButtons = data)
+    );
   }
 
   ngOnDestroy(): void {
@@ -86,7 +90,7 @@ export class CreateTaskComponent implements OnInit, OnDestroy {
 
   handleCreateTask(): void {
     //localStorage.clear();
-    if (
+    /*     if (
       !this.taskName ||
       !this.taskDesc ||
       !this.defaultDay ||
@@ -106,6 +110,7 @@ export class CreateTaskComponent implements OnInit, OnDestroy {
 
     this.tasks = JSON.parse(localStorage.getItem('Task List')!);
     this.tasks.push(this.task);
-    localStorage.setItem('Task List', JSON.stringify(this.tasks));
+    localStorage.setItem('Task List', JSON.stringify(this.tasks)); */
+    console.log(this.priorityButtons);
   }
 }

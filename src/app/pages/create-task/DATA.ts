@@ -73,3 +73,20 @@ export const MONTH_LIST: string[] = [
   'November',
   'December',
 ];
+
+/* export const PRIO_BUTTONS = [
+  { i: 0, name: 'Urgent', color: 'red', status: 0 },
+  { i: 1, name: 'High', color: 'yellow', status: 0 },
+  { i: 2, name: 'Low', color: 'blue', status: 0 },
+  { i: 3, name: 'No priority', color: 'grey', status: 0 },
+]; */
+
+export const PRIO_BUTTONS = {
+  buttons: [
+    { i: 0, name: 'Urgent', color: 'red', status: 0 },
+    { i: 1, name: 'High', color: 'yellow', status: 0 },
+    { i: 2, name: 'Low', color: 'blue', status: 0 },
+    { i: 3, name: 'No priority', color: 'grey', status: 0 },
+  ],
+  history: null,
+};

@@ -12,14 +12,14 @@ export class TimerComponent implements OnInit, OnDestroy {
   subscription!: Subscription;
   timer!: any;
 
-  constructor(private data: MyserviceService) {}
+  constructor(private dataDate: MyserviceService) {}
 
   ngOnInit(): void {
     this.timer = setInterval(() => {
-      this.subscription = this.data.currentDate.subscribe(
+      this.subscription = this.dataDate.currentDate.subscribe(
         (date) => (this.date = new Date(Date.now()))
       );
-      this.data.changeDate(new Date(Date.now()));
+      this.dataDate.changeDate(new Date(Date.now()));
     }, 1000);
   }
 
@@ -31,6 +31,6 @@ export class TimerComponent implements OnInit, OnDestroy {
   }
 
   newDate() {
-    this.data.changeDate(new Date(Date.now()));
+    this.dataDate.changeDate(new Date(Date.now()));
   }
 }
