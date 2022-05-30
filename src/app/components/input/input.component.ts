@@ -14,8 +14,8 @@ export class InputComponent implements OnInit {
 
   @Output() task = new EventEmitter<Event>();
 
-  setTask(event: Event) {
-    this.task.emit(event);
+  setTask(event: any) {
+    this.task.emit(event.target);
   }
 
   ngOnInit(): void {}

@@ -21,3 +21,9 @@ export interface PrioButtons {
   active: string;
   history: any;
 }
+
+export interface Inputs {
+  title: string;
+  id: string;
+  placeH: string;
+}

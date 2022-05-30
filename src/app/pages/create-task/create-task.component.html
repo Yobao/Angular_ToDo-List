@@ -47,6 +47,16 @@
 </div>
 
 <app-input
+  *ngFor="let input of inputs"
+  [title]="input.title"
+  [id]="input.id"
+  [placeH]="input.placeH"
+  (task)="setTask($event)"
+></app-input>
+
+<!-- 
+  OLD WAY OF INPUTS
+  <app-input
   [placeH]="'Name of the task'"
   [id]="'taskName'"
   [title]="'Task Name'"
@@ -57,7 +67,7 @@
   [id]="'des'"
   [title]="'Description'"
   (task)="setTask($event)"
-></app-input>
+></app-input> -->
 
 <div class="butt-container">
   <div class="butt_container">

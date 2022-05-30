@@ -1,8 +1,8 @@
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { InputComponent } from 'src/app/components/input/input.component';
 import { ButtonComponent } from 'src/app/components/button/button.component';
-import { MONTH_DAY, MONTH_LIST, PRIO_BUTTONS } from './DATA';
-import { Task, Month, PrioButtons } from './interface';
+import { MONTH_DAY, MONTH_LIST, INPUTS } from './DATA';
+import { Task, Month, PrioButtons, Inputs } from './interface';
 import { MyserviceService } from 'src/app/services/myservice.service';
 import { PrioButtonsService } from 'src/app/services/prio-buttons.service';
 import { Subscription } from 'rxjs';
@@ -38,6 +38,8 @@ export class CreateTaskComponent implements OnInit, OnDestroy {
   subscription!: Subscription;
   priorityButtons!: PrioButtons;
 
+  inputs: Inputs[] = INPUTS;
+
   constructor(
     private dataDate: MyserviceService,
     private dataPrioButtons: PrioButtonsService
@@ -63,16 +65,6 @@ export class CreateTaskComponent implements OnInit, OnDestroy {
     );
   }
 
-  clearInputs(): void {
-    this.defaultDay = this.date.getDate();
-    this.defaultMonth = this.monthsUpdated[0].name;
-    this.handleUpdateDays(this.defaultMonth);
-    this.priorityButtons.active = '';
-    this.priorityButtons.buttons[this.priorityButtons.history].status = 0;
-    this.taskEvent.value = '';
-    this.descEvent.value = '';
-  }
-
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
@@ -92,15 +84,18 @@ export class CreateTaskComponent implements OnInit, OnDestroy {
     }
   }
 
-  setTask(event: Event) {
-    (<HTMLInputElement>event.target).id === 'des'
-      ? (this.taskDesc = (<HTMLInputElement>event.target).value)
-      : (this.taskName = (<HTMLInputElement>event.target).value);
+  setTask(event: any) {
+    if (event.id === 'description') {
+      this.taskDesc = event.value;
+      this.descEvent = event;
+    }
+    if (event.id === 'taskName') {
+      this.taskName = event.value;
+      this.taskEvent = event;
+    }
 
-    //this.clearInputs(<HTMLInputElement>event.target)
-    //(<HTMLInputElement>event.target).value = 'Test';
-
-    if (
+    //OLD WAY OF INPUTS
+    /*     if (
       (<HTMLInputElement>event.target).id === 'des' &&
       typeof (<HTMLInputElement>event.target) !== 'undefined'
     ) {
@@ -111,11 +106,7 @@ export class CreateTaskComponent implements OnInit, OnDestroy {
       typeof (<HTMLInputElement>event.target) !== 'undefined'
     ) {
       this.taskEvent = <HTMLInputElement>event.target;
-    }
-
-    /*     (<HTMLInputElement>event.target).id === 'des'
-      ? (this.descEvent = <HTMLInputElement>event.target)
-      : (this.taskEvent = <HTMLInputElement>event.target); */
+    } */
   }
 
   handleCreateTask(): void {
@@ -145,5 +136,15 @@ export class CreateTaskComponent implements OnInit, OnDestroy {
     localStorage.setItem('Task List', JSON.stringify(this.tasks));
     this.clearInputs();
     alert('Task has been successfully created and moved into ToDo list.');
+  }
+
+  clearInputs(): void {
+    this.defaultDay = this.date.getDate();
+    this.defaultMonth = this.monthsUpdated[0].name;
+    this.handleUpdateDays(this.defaultMonth);
+    this.priorityButtons.active = '';
+    this.priorityButtons.buttons[this.priorityButtons.history].status = 0;
+    this.taskEvent.value = '';
+    this.descEvent.value = '';
   }
 }

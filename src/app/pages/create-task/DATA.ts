@@ -74,6 +74,15 @@ export const MONTH_LIST: string[] = [
   'December',
 ];
 
+export const INPUTS = [
+  { title: 'Task Name', id: 'taskName', placeH: 'Name of the task' },
+  {
+    title: 'Description',
+    id: 'description',
+    placeH: 'Description max. 200 characters',
+  },
+];
+
 export const PRIO_BUTTONS = {
   buttons: [
     { i: 0, name: 'Urgent', color: 'red', status: 0 },
