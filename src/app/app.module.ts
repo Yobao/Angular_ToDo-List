@@ -17,6 +17,7 @@ import { RequestsComponent } from './pages/requests/requests.component';
 
 import { FormsModule } from '@angular/forms';
 import { ButtonComponent } from './components/button/button.component';
+import { StoreModule } from '@ngrx/store';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -42,7 +43,7 @@ const routes: Routes = [
     RequestsComponent,
     ButtonComponent,
   ],
-  imports: [BrowserModule, RouterModule.forRoot(routes), FormsModule],
+  imports: [BrowserModule, RouterModule.forRoot(routes), FormsModule, StoreModule.forRoot({}, {})],
   exports: [RouterModule],
   providers: [],
   bootstrap: [AppComponent],

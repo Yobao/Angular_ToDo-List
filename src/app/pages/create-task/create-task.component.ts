@@ -16,13 +16,12 @@ export class CreateTaskComponent implements OnInit, OnDestroy {
   taskName?: string;
   taskDesc?: string;
   i!: number;
-  color!: string;
   tasks: any;
   days!: number | string;
   defaultMonth!: string;
   defaultDay!: number;
 
-  public months: Array<Month> = MONTH_DAY;
+  months: Array<Month> = MONTH_DAY;
   monthsUpdated: Month[] = [];
   task: Task = {
     name: '',
@@ -34,7 +33,6 @@ export class CreateTaskComponent implements OnInit, OnDestroy {
 
   date!: Date;
   subscription!: Subscription;
-  priorityButtonActive: number = 1; // ????????
   priorityButtons!: PrioButtons;
 
   constructor(
@@ -44,7 +42,7 @@ export class CreateTaskComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     //Handle default month/day & date arrays...
-    //Not elegant solution to push months into new array...REFACTOR
+    //Not elegant solution to push months into new array?...REFACTOR?
     this.subscription = this.dataDate.currentDate.subscribe(
       (date) => (this.date = date)
     );
@@ -57,7 +55,6 @@ export class CreateTaskComponent implements OnInit, OnDestroy {
     this.defaultMonth = this.monthsUpdated[0].name;
     this.handleUpdateDays(this.defaultMonth);
 
-    //Handle priority buttons...
     this.subscription = this.dataPrioButtons.currentButtonState.subscribe(
       (data) => (this.priorityButtons = data)
     );
@@ -90,7 +87,7 @@ export class CreateTaskComponent implements OnInit, OnDestroy {
 
   handleCreateTask(): void {
     //localStorage.clear();
-    /*     if (
+    if (
       !this.taskName ||
       !this.taskDesc ||
       !this.defaultDay ||
@@ -110,7 +107,6 @@ export class CreateTaskComponent implements OnInit, OnDestroy {
 
     this.tasks = JSON.parse(localStorage.getItem('Task List')!);
     this.tasks.push(this.task);
-    localStorage.setItem('Task List', JSON.stringify(this.tasks)); */
-    console.log(this.priorityButtons);
+    localStorage.setItem('Task List', JSON.stringify(this.tasks));
   }
 }

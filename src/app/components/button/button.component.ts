@@ -32,23 +32,11 @@ export class ButtonComponent implements OnInit, OnDestroy {
   }
 
   onPriorityClick(e: number) {
-    console.log(this.prioButtons);
     if (this.prioButtons.history !== null) {
       this.prioButtons.buttons[this.prioButtons.history].status = 0;
     }
     this.prioButtons.history = e;
     this.prioButtons.buttons[e].status = 1;
     this.dataPrioButtons.changeActiveButton(this.prioButtons);
-    console.log(this.prioButtons);
   }
 }
-
-/*
-maybe this approach of service ???
-[
-  {name: "Urgent", status: 1, color: "red"},
-  {name: "High", status: 0, color: "yelow"},
-  {name: "Low", status: 0, color: "blue"},
-  {name: "No priority", status: 0, color: "grey"},
-]
-*/
