@@ -38,5 +38,6 @@ export class ButtonComponent implements OnInit, OnDestroy {
     this.prioButtons.history = e;
     this.prioButtons.buttons[e].status = 1;
     this.dataPrioButtons.changeActiveButton(this.prioButtons);
+    this.prioButtons.active = this.prioButtons.buttons[e].name;
   }
 }

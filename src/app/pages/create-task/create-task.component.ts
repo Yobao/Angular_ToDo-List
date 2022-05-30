@@ -28,7 +28,10 @@ export class CreateTaskComponent implements OnInit, OnDestroy {
     description: '',
     day: this.defaultDay,
     month: this.defaultMonth,
+    priority: '',
   };
+  taskEvent!: any;
+  descEvent!: any;
   daysArray: string[] = [];
 
   date!: Date;
@@ -60,6 +63,16 @@ export class CreateTaskComponent implements OnInit, OnDestroy {
     );
   }
 
+  clearInputs(): void {
+    this.defaultDay = this.date.getDate();
+    this.defaultMonth = this.monthsUpdated[0].name;
+    this.handleUpdateDays(this.defaultMonth);
+    this.priorityButtons.active = '';
+    this.priorityButtons.buttons[this.priorityButtons.history].status = 0;
+    this.taskEvent.value = '';
+    this.descEvent.value = '';
+  }
+
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
@@ -83,6 +96,26 @@ export class CreateTaskComponent implements OnInit, OnDestroy {
     (<HTMLInputElement>event.target).id === 'des'
       ? (this.taskDesc = (<HTMLInputElement>event.target).value)
       : (this.taskName = (<HTMLInputElement>event.target).value);
+
+    //this.clearInputs(<HTMLInputElement>event.target)
+    //(<HTMLInputElement>event.target).value = 'Test';
+
+    if (
+      (<HTMLInputElement>event.target).id === 'des' &&
+      typeof (<HTMLInputElement>event.target) !== 'undefined'
+    ) {
+      this.descEvent = <HTMLInputElement>event.target;
+    }
+    if (
+      (<HTMLInputElement>event.target).id === 'taskName' &&
+      typeof (<HTMLInputElement>event.target) !== 'undefined'
+    ) {
+      this.taskEvent = <HTMLInputElement>event.target;
+    }
+
+    /*     (<HTMLInputElement>event.target).id === 'des'
+      ? (this.descEvent = <HTMLInputElement>event.target)
+      : (this.taskEvent = <HTMLInputElement>event.target); */
   }
 
   handleCreateTask(): void {
@@ -91,7 +124,8 @@ export class CreateTaskComponent implements OnInit, OnDestroy {
       !this.taskName ||
       !this.taskDesc ||
       !this.defaultDay ||
-      !this.defaultMonth
+      !this.defaultMonth ||
+      this.priorityButtons.active === ''
     )
       return alert('Please, fill out all neccessary fields!');
 
@@ -100,6 +134,7 @@ export class CreateTaskComponent implements OnInit, OnDestroy {
       description: this.taskDesc,
       day: this.defaultDay,
       month: this.defaultMonth,
+      priority: this.priorityButtons.active,
     };
     if (!localStorage.getItem('Task List')) {
       return localStorage.setItem('Task List', JSON.stringify([this.task]));
@@ -108,5 +143,7 @@ export class CreateTaskComponent implements OnInit, OnDestroy {
     this.tasks = JSON.parse(localStorage.getItem('Task List')!);
     this.tasks.push(this.task);
     localStorage.setItem('Task List', JSON.stringify(this.tasks));
+    this.clearInputs();
+    alert('Task has been successfully created and moved into ToDo list.');
   }
 }

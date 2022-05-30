@@ -81,5 +81,6 @@ export const PRIO_BUTTONS = {
     { i: 2, name: 'Low', color: 'blue', status: 0 },
     { i: 3, name: 'No priority', color: 'grey', status: 0 },
   ],
+  active: '',
   history: null,
 };

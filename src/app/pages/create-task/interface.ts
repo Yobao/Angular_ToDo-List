@@ -3,6 +3,7 @@ export interface Task {
   description: string;
   day: number;
   month: string;
+  priority: string;
 }
 
 export interface Month {
@@ -15,14 +16,8 @@ export interface Date {
   day: any;
 }
 
-interface TempPrioButtons {
-  i: number;
-  name: string;
-  color: string;
-  status: number;
-}
-
 export interface PrioButtons {
   buttons: { i: number; name: string; color: string; status: number }[];
+  active: string;
   history: any;
 }
