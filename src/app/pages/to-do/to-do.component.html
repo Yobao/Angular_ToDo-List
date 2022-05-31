@@ -1,18 +1,5 @@
 <div>
-  <div>
-    <table>
-      <thead>
-        <th *ngFor="let column of tableHead">{{ column }}</th>
-      </thead>
-      <tbody>
-        <tr *ngFor="let row of toDoTasks">
-          <td *ngFor="let column of tableColumns; let i = index">
-            {{ row }}
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+  <app-table toDoTasks="toDoTasks"></app-table>
 
   <button (click)="test()">CLICK ME</button>
 </div>

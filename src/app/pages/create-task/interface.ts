@@ -4,6 +4,7 @@ export interface Task {
   day: number;
   month: string;
   priority: string;
+  [key: string]: any;
 }
 
 export interface Month {
@@ -34,8 +35,4 @@ export interface TableColumns {
   month: string;
   name: string;
   priority: string;
-}
-
-export interface Testing {
-  [key: string]: any;
 }

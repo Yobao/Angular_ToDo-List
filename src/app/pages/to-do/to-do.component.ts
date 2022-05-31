@@ -1,9 +1,6 @@
 import { Component, OnInit, Type } from '@angular/core';
-import { TableRowComponent } from 'src/app/components/table/table-row/table-row.component';
-import { TableCellComponent } from 'src/app/components/table/table-cell/table-cell.component';
 import { Task } from '../create-task/interface';
 import { TABLE_HEAD, TABLE_COLUMNS } from '../create-task/DATA';
-import { Testing } from '../create-task/interface';
 
 @Component({
   selector: 'app-to-do',
@@ -19,7 +16,5 @@ export class ToDoComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  test() {
-    for (let i: number = 0; i < this.toDoTasks.length; i++) {}
-  }
+  test() {}
 }
