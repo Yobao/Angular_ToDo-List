@@ -18,6 +18,8 @@ import { RequestsComponent } from './pages/requests/requests.component';
 import { FormsModule } from '@angular/forms';
 import { ButtonComponent } from './components/button/button.component';
 import { StoreModule } from '@ngrx/store';
+import { TableRowComponent } from './components/table/table-row/table-row.component';
+import { TableCellComponent } from './components/table/table-cell/table-cell.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -42,6 +44,8 @@ const routes: Routes = [
     DoneComponent,
     RequestsComponent,
     ButtonComponent,
+    TableRowComponent,
+    TableCellComponent,
   ],
   imports: [BrowserModule, RouterModule.forRoot(routes), FormsModule, StoreModule.forRoot({}, {})],
   exports: [RouterModule],

@@ -93,3 +93,21 @@ export const PRIO_BUTTONS = {
   active: '',
   history: null,
 };
+
+export const TABLE_HEAD = [
+  'Select',
+  'Priority',
+  'Day',
+  'Month',
+  'Task Name',
+  'Description',
+];
+
+export const TABLE_COLUMNS = [
+  'TICK',
+  'priority',
+  'day',
+  'month',
+  'name',
+  'description',
+];

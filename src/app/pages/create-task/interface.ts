@@ -27,3 +27,15 @@ export interface Inputs {
   id: string;
   placeH: string;
 }
+
+export interface TableColumns {
+  day: string;
+  description: string;
+  month: string;
+  name: string;
+  priority: string;
+}
+
+export interface Testing {
+  [key: string]: any;
+}
