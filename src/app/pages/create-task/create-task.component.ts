@@ -23,13 +23,7 @@ export class CreateTaskComponent implements OnInit, OnDestroy {
 
   months: Array<Month> = MONTH_DAY;
   monthsUpdated: Month[] = [];
-  task: Task = {
-    name: '',
-    description: '',
-    day: this.defaultDay,
-    month: this.defaultMonth,
-    priority: '',
-  };
+  task!: Task;
   taskEvent!: any;
   descEvent!: any;
   daysArray: string[] = [];
@@ -123,9 +117,13 @@ export class CreateTaskComponent implements OnInit, OnDestroy {
     this.task = {
       name: this.taskName,
       description: this.taskDesc,
-      day: this.defaultDay,
-      month: this.defaultMonth,
+      date: new Date(
+        this.date.getFullYear(),
+        MONTH_LIST.indexOf(this.defaultMonth),
+        this.defaultDay
+      ),
       priority: this.priorityButtons.active,
+      priorityNumber: this.priorityButtons.activeNumber,
     };
     if (!localStorage.getItem('Task List')) {
       return localStorage.setItem('Task List', JSON.stringify([this.task]));

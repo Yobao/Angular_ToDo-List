@@ -1,5 +1,9 @@
 <div>
-  <app-table toDoTasks="toDoTasks"></app-table>
+  <app-table
+    [taskArray]="toDoTasks"
+    [headArray]="tableHead"
+    [columnsArray]="tableColumns"
+  ></app-table>
 
   <button (click)="test()">CLICK ME</button>
 </div>

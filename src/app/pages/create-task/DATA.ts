@@ -1,30 +1,30 @@
 export const MONTH_DAY = [
   {
-    name: 'Január',
+    name: 'January',
     days: 31,
   },
   {
-    name: 'Február',
+    name: 'February',
     days: 28,
   },
   {
-    name: 'Marec',
+    name: 'March',
     days: 31,
   },
   {
-    name: 'Apríl',
+    name: 'April',
     days: 30,
   },
   {
-    name: 'Máj',
+    name: 'May',
     days: 31,
   },
   {
-    name: 'Jún',
+    name: 'June',
     days: 30,
   },
   {
-    name: 'Júl',
+    name: 'July',
     days: 31,
   },
   {
@@ -36,7 +36,7 @@ export const MONTH_DAY = [
     days: 30,
   },
   {
-    name: 'Október',
+    name: 'October',
     days: 31,
   },
   {
@@ -50,26 +50,26 @@ export const MONTH_DAY = [
 ];
 
 export const DAY_LIST: string[] = [
-  'Nedeľa',
-  'Pondelok',
-  'Utorok',
-  'Streda',
-  'Štvrtok',
-  'Piatok',
-  'Sobota',
+  'Sunday',
+  'Monay',
+  'Tuesday',
+  'Wednesday',
+  'Thursday',
+  'Friday',
+  'Saturday',
 ];
 
 export const MONTH_LIST: string[] = [
-  'Január',
-  'Február',
-  'Marec',
-  'Apríl',
-  'Máj',
-  'Jún',
-  'Júl',
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
   'August',
   'September',
-  'Október',
+  'October',
   'November',
   'December',
 ];
@@ -91,23 +91,22 @@ export const PRIO_BUTTONS = {
     { i: 3, name: 'No priority', color: 'grey', status: 0 },
   ],
   active: '',
+  activeNumber: null,
   history: null,
 };
 
 export const TABLE_HEAD = [
   'Select',
-  'Priority',
-  'Day',
-  'Month',
   'Task Name',
+  'Priority',
+  'Due Date',
   'Description',
 ];
 
 export const TABLE_COLUMNS = [
-  'TICK',
-  'priority',
-  'day',
-  'month',
+  'tick',
   'name',
+  'priority',
+  'date',
   'description',
 ];

@@ -1,14 +1,20 @@
 <div>
-<!--     <table>
-      <thead>
-        <th *ngFor="let column of tableHead">{{ column }}</th>
-      </thead>
-      <tbody>
-        <tr *ngFor="let row of toDoTasks">
-          <td *ngFor="let column of tableColumns; let i = index">
-            {{ row }}
-          </td>
-        </tr>
-      </tbody>
-    </table> -->
-  </div>
+  <table>
+    <thead>
+      <th
+        *ngFor="let column of headArray; let i = index"
+        (click)="sortTable($event)"
+        [id]="i"
+      >
+        {{ column }}
+      </th>
+    </thead>
+    <tbody>
+      <tr *ngFor="let row of taskArray">
+        <td *ngFor="let column of columnsArray; let i = index">
+          {{ i === 3 ? (row[column] | date: "MMMM, dd") : row[column] }}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

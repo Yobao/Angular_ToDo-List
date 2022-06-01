@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { HeaderComponent } from './header/header.component';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
