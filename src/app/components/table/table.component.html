@@ -1,18 +1,26 @@
 <div>
-  <table>
+  <table class="table">
     <thead>
       <th
         *ngFor="let column of headArray; let i = index"
         (click)="sortTable($event)"
         [id]="i"
+        class="click-hover"
       >
         {{ column }}
       </th>
     </thead>
     <tbody>
-      <tr *ngFor="let row of taskArray">
-        <td *ngFor="let column of columnsArray; let i = index">
-          {{ i === 3 ? (row[column] | date: "MMMM, dd") : row[column] }}
+      <tr *ngFor="let row of taskArray; let i1 = index">
+        <td *ngFor="let column of columnsArray; let i2 = index">
+          <input
+            *ngIf="!row[column]"
+            type="checkbox"
+            [name]="i1"
+            (click)="handleSelect($event)"
+            class="click-hover"
+          />
+          {{ i2 === 3 ? (row[column] | date: "MMMM, dd") : row[column] }}
         </td>
       </tr>
     </tbody>

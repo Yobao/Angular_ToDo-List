@@ -15,20 +15,12 @@ export class TableComponent implements OnInit {
   @Input() columnsArray!: any;
 
   date!: Date;
-  filter!: string;
+  sortBy!: string;
   filterOrder: string = 'a';
   f1!: number;
   f2!: number;
 
-  private orderChange = () => {
-    if (this.filterOrder === 'a') {
-      this.f1 = 1;
-      this.f2 = -1;
-    } else {
-      this.f1 = -1;
-      this.f2 = 1;
-    }
-  };
+  isSortAscending: boolean = true;
 
   constructor(private dateData: MyserviceService) {}
 
@@ -39,24 +31,40 @@ export class TableComponent implements OnInit {
     );
   }
 
+  private customSort = (arr: any, sortBy: string) => {
+    return arr.sort((a: any, b: any) =>
+      this.isSortAscending
+        ? a[sortBy] > b[sortBy]
+          ? 1
+          : -1
+        : a[sortBy] > b[sortBy]
+        ? -1
+        : 1
+    );
+  };
+
   sortTable(e: Event) {
-    const eventTarget = e.target as HTMLElement;
+    const colIndexNum: number = parseInt((e.target as HTMLElement).id);
+    //Do not sort "Select" & "Desscription" columns condition.
+    if ([0, 4].includes(colIndexNum)) return;
 
-    this.filterOrder =
-      this.filter === TABLE_COLUMNS[parseInt(eventTarget.id)] &&
-      this.filterOrder === 'a'
-        ? 'd'
-        : 'a';
-    this.orderChange();
+    this.isSortAscending =
+      (this.sortBy === undefined && TABLE_COLUMNS[colIndexNum] === 'date') ||
+      (this.sortBy === TABLE_COLUMNS[colIndexNum] && this.isSortAscending)
+        ? false
+        : true;
 
-    this.filter = TABLE_COLUMNS[parseInt(eventTarget.id)];
+    this.sortBy = TABLE_COLUMNS[colIndexNum];
     this.taskArray =
-      this.filter === 'priority'
-        ? this.taskArray.sort((a: any, b: any) =>
-            a.priorityNumber > b.priorityNumber ? this.f1 : this.f2
-          )
-        : this.taskArray.sort((a: any, b: any) =>
-            a[this.filter] > b[this.filter] ? this.f1 : this.f2
-          );
+      this.sortBy === 'priority'
+        ? this.customSort(this.taskArray, 'priorityNumber')
+        : this.customSort(this.taskArray, this.sortBy);
+  }
+
+  handleSelect(e: Event) {
+    const target = e.target as HTMLInputElement;
+    const checked = target.checked;
+    const taskNumber = target.name;
+    console.log(taskNumber);
   }
 }
