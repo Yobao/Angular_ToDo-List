@@ -1,34 +1,52 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Input } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { MyserviceService } from 'src/app/services/myservice.service';
+import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { TABLE_COLUMNS, PRIO_BUTTONS } from 'src/app/pages/create-task/DATA';
+import { Task } from 'src/app/pages/create-task/interface';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-table',
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.css'],
 })
-export class TableComponent implements OnInit {
+export class TableComponent implements OnInit, OnDestroy {
   @Input() taskArray!: any;
   @Input() headArray!: any;
   @Input() columnsArray!: any;
 
   date!: Date;
+  localStorageTaskList!: any;
   sortBy!: string;
   filterOrder: string = 'a';
   f1!: number;
   f2!: number;
 
+  subscriptionDate!: Subscription;
+  subscriptionTaskList!: Subscription;
+
   isSortAscending: boolean = true;
 
-  constructor(private dateData: MyserviceService) {}
+  constructor(
+    private dateData: MyserviceService,
+    private storageData: LocalStorageService
+  ) {}
 
   ngOnInit(): void {
-    this.dateData.currentDate.subscribe((date) => (this.date = date));
-    this.taskArray = this.taskArray.sort((a: any, b: any) =>
-      a.date > b.date ? 1 : -1
+    this.subscriptionDate = this.dateData.currentDate.subscribe(
+      (date) => (this.date = date)
     );
+    this.subscriptionTaskList = this.storageData.currentStorageState.subscribe(
+      (storage) => (this.localStorageTaskList = storage)
+    );
+    this.customSort(this.taskArray, 'date');
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptionDate.unsubscribe();
+    this.subscriptionTaskList.unsubscribe();
   }
 
   private customSort = (arr: any, sortBy: string) => {
@@ -49,7 +67,7 @@ export class TableComponent implements OnInit {
     if ([0, 4].includes(colIndexNum)) return;
 
     this.isSortAscending =
-      (this.sortBy === undefined && TABLE_COLUMNS[colIndexNum] === 'date') ||
+      (!this.sortBy && TABLE_COLUMNS[colIndexNum] === 'date') ||
       (this.sortBy === TABLE_COLUMNS[colIndexNum] && this.isSortAscending)
         ? false
         : true;
@@ -65,6 +83,12 @@ export class TableComponent implements OnInit {
     const target = e.target as HTMLInputElement;
     const checked = target.checked;
     const taskNumber = target.name;
-    console.log(taskNumber);
+    console.log(checked, taskNumber);
   }
+
+  storageTesting() {
+    console.log(typeof this.localStorageTaskList);
+  }
+
+  drop(e: any) {}
 }

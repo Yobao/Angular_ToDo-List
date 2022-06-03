@@ -1,5 +1,5 @@
 <div>
-  <table class="table">
+  <table class="table" cdkDropList (cdkDropListDropped)="drop($event)">
     <thead>
       <th
         *ngFor="let column of headArray; let i = index"
@@ -11,8 +11,8 @@
       </th>
     </thead>
     <tbody>
-      <tr *ngFor="let row of taskArray; let i1 = index">
-        <td *ngFor="let column of columnsArray; let i2 = index">
+      <tr *ngFor="let row of taskArray; let i1 = index" cdkDrag>
+        <td *ngFor="let column of columnsArray; let i2 = index" class="test">
           <input
             *ngIf="!row[column]"
             type="checkbox"
@@ -26,3 +26,7 @@
     </tbody>
   </table>
 </div>
+
+<button (click)="storageTesting()">MY DOG STEPPED ON THE BEE OH!</button>
+
+<div cdkDrag cdkDragLockAxis="x" class="dragg">DRAG ME</div>

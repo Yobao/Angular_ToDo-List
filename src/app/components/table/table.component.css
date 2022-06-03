@@ -5,3 +5,13 @@
 .table {
   margin: auto;
 }
+
+.test {
+  border-bottom: 1px solid #aaa;
+}
+
+.dragg {
+  width: 200px;
+  height: 100px;
+  border-color: black;
+}

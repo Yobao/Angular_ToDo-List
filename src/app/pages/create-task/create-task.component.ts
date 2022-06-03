@@ -29,7 +29,9 @@ export class CreateTaskComponent implements OnInit, OnDestroy {
   daysArray: string[] = [];
 
   date!: Date;
-  subscription!: Subscription;
+  subscriptionDate!: Subscription;
+  subscriptionPrioButtons!: Subscription;
+
   priorityButtons!: PrioButtons;
 
   inputs: Inputs[] = INPUTS;
@@ -42,7 +44,7 @@ export class CreateTaskComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     //Handle default month/day & date arrays...
     //Not elegant solution to push months into new array?...REFACTOR?
-    this.subscription = this.dataDate.currentDate.subscribe(
+    this.subscriptionDate = this.dataDate.currentDate.subscribe(
       (date) => (this.date = date)
     );
     this.defaultDay = this.date.getDate();
@@ -54,13 +56,15 @@ export class CreateTaskComponent implements OnInit, OnDestroy {
     this.defaultMonth = this.monthsUpdated[0].name;
     this.handleUpdateDays(this.defaultMonth);
 
-    this.subscription = this.dataPrioButtons.currentButtonState.subscribe(
-      (data) => (this.priorityButtons = data)
-    );
+    this.subscriptionPrioButtons =
+      this.dataPrioButtons.currentButtonState.subscribe(
+        (data) => (this.priorityButtons = data)
+      );
   }
 
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+    this.subscriptionDate.unsubscribe();
+    this.subscriptionPrioButtons.unsubscribe();
   }
 
   handleUpdateDays(e: string): void {
@@ -87,20 +91,6 @@ export class CreateTaskComponent implements OnInit, OnDestroy {
       this.taskName = event.value;
       this.taskEvent = event;
     }
-
-    //OLD WAY OF INPUTS
-    /*     if (
-      (<HTMLInputElement>event.target).id === 'des' &&
-      typeof (<HTMLInputElement>event.target) !== 'undefined'
-    ) {
-      this.descEvent = <HTMLInputElement>event.target;
-    }
-    if (
-      (<HTMLInputElement>event.target).id === 'taskName' &&
-      typeof (<HTMLInputElement>event.target) !== 'undefined'
-    ) {
-      this.taskEvent = <HTMLInputElement>event.target;
-    } */
   }
 
   handleCreateTask(): void {

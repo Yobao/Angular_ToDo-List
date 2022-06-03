@@ -19,6 +19,9 @@ import { FormsModule } from '@angular/forms';
 import { ButtonComponent } from './components/button/button.component';
 import { StoreModule } from '@ngrx/store';
 import { TableComponent } from './components/table/table.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CdkTableModule } from '@angular/cdk/table';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -50,6 +53,9 @@ const routes: Routes = [
     RouterModule.forRoot(routes),
     FormsModule,
     StoreModule.forRoot({}, {}),
+    BrowserAnimationsModule,
+    [CdkTableModule],
+    [DragDropModule],
   ],
   exports: [RouterModule],
   providers: [],
