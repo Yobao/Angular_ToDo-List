@@ -11,8 +11,18 @@
       </th>
     </thead>
     <tbody>
-      <tr *ngFor="let row of taskArray; let i1 = index" cdkDrag>
-        <td *ngFor="let column of columnsArray; let i2 = index" class="test">
+      <tr
+        *ngFor="let row of taskArray; let i1 = index"
+        cdkDrag
+        [cdkDragData]="row"
+      >
+        <td
+          *ngFor="let column of columnsArray; let i2 = index"
+          class="base-underline"
+          [ngClass]="{ underline: row.isActive }"
+          [id]="i1"
+          (click)="handleUnderline($event)"
+        >
           <input
             *ngIf="!row[column]"
             type="checkbox"
@@ -27,6 +37,6 @@
   </table>
 </div>
 
-<button (click)="storageTesting()">MY DOG STEPPED ON THE BEE OH!</button>
+<button (click)="daco()">Daco</button>
 
-<div cdkDrag cdkDragLockAxis="x" class="dragg">DRAG ME</div>
+<!-- <button (click)="test()">CLICK ME</button> -->

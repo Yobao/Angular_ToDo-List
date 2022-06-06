@@ -1,8 +1,8 @@
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { InputComponent } from 'src/app/components/input/input.component';
 import { ButtonComponent } from 'src/app/components/button/button.component';
-import { MONTH_DAY, MONTH_LIST, INPUTS } from './DATA';
-import { Task, Month, PrioButtons, Inputs } from './interface';
+import { MONTH_DAY, MONTH_LIST, INPUTS } from '../../../data/DATA';
+import { Task, Month, PrioButtons, Inputs } from '../../../data/interface';
 import { MyserviceService } from 'src/app/services/myservice.service';
 import { PrioButtonsService } from 'src/app/services/prio-buttons.service';
 import { Subscription } from 'rxjs';
@@ -114,6 +114,7 @@ export class CreateTaskComponent implements OnInit, OnDestroy {
       ),
       priority: this.priorityButtons.active,
       priorityNumber: this.priorityButtons.activeNumber,
+      isActive: false,
     };
     if (!localStorage.getItem('Task List')) {
       return localStorage.setItem('Task List', JSON.stringify([this.task]));

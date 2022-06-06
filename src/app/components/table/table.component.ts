@@ -3,9 +3,10 @@ import { Input } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { MyserviceService } from 'src/app/services/myservice.service';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
-import { TABLE_COLUMNS, PRIO_BUTTONS } from 'src/app/pages/create-task/DATA';
-import { Task } from 'src/app/pages/create-task/interface';
+import { TABLE_COLUMNS, PRIO_BUTTONS } from 'src/data/DATA';
+import { Task } from '../../../data/interface';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { dashCaseToCamelCase } from '@angular/compiler/src/util';
 
 @Component({
   selector: 'app-table',
@@ -18,16 +19,15 @@ export class TableComponent implements OnInit, OnDestroy {
   @Input() columnsArray!: any;
 
   date!: Date;
-  localStorageTaskList!: any;
+
   sortBy!: string;
-  filterOrder: string = 'a';
-  f1!: number;
-  f2!: number;
+  isSortAscending: boolean = true;
+  localStorageTaskList!: Task[];
 
   subscriptionDate!: Subscription;
   subscriptionTaskList!: Subscription;
 
-  isSortAscending: boolean = true;
+  previousActive!: number;
 
   constructor(
     private dateData: MyserviceService,
@@ -39,7 +39,7 @@ export class TableComponent implements OnInit, OnDestroy {
       (date) => (this.date = date)
     );
     this.subscriptionTaskList = this.storageData.currentStorageState.subscribe(
-      (storage) => (this.localStorageTaskList = storage)
+      (storage) => (this.taskArray = storage)
     );
     this.customSort(this.taskArray, 'date');
   }
@@ -50,15 +50,15 @@ export class TableComponent implements OnInit, OnDestroy {
   }
 
   private customSort = (arr: any, sortBy: string) => {
-    return arr.sort((a: any, b: any) =>
-      this.isSortAscending
+    return arr.sort((a: any, b: any) => {
+      return this.isSortAscending
         ? a[sortBy] > b[sortBy]
           ? 1
           : -1
         : a[sortBy] > b[sortBy]
         ? -1
-        : 1
-    );
+        : 1;
+    });
   };
 
   sortTable(e: Event) {
@@ -83,12 +83,45 @@ export class TableComponent implements OnInit, OnDestroy {
     const target = e.target as HTMLInputElement;
     const checked = target.checked;
     const taskNumber = target.name;
-    console.log(checked, taskNumber);
   }
 
-  storageTesting() {
-    console.log(typeof this.localStorageTaskList);
+  drop(e: any) {
+    if (e.previousIndex === e.currentIndex) return;
+
+    if (this.previousActive !== undefined)
+      this.taskArray[this.previousActive].isActive = false;
+    this.taskArray[e.previousIndex].isActive = true;
+    this.taskArray[e.currentIndex].isActive = false;
+
+    this.previousActive = e.currentIndex;
+    moveItemInArray(this.taskArray, e.previousIndex, e.currentIndex);
+    this.storageData.updateTasks(this.taskArray);
+    this.isSortAscending = false;
   }
 
-  drop(e: any) {}
+  handleUnderline(e: Event) {
+    const target = e.target as HTMLInputElement;
+    if (this.previousActive !== undefined)
+      this.taskArray[this.previousActive].isActive = false;
+
+    this.previousActive =
+      target.tagName === 'INPUT'
+        ? parseInt(target.parentElement!.id)
+        : parseInt(target.id);
+
+    this.taskArray[this.previousActive].isActive = true;
+    this.storageData.updateTasks(this.taskArray);
+  }
+
+  daco() {
+    this.storageData.clearUnderline();
+  }
 }
+
+/* 
+Add new array into LocalStorageService 
+  - info about which row should be highlighted by id number ??? 
+PROBLEM - what about id of deleted elemnt ? should all be deleted ? 
+  - approach indexOf(taskName) not efficient...
+Maybe dynamically saving row index ????
+*/

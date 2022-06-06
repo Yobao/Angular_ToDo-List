@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { Task } from '../create-task/interface';
-import { TABLE_HEAD, TABLE_COLUMNS, MONTH_LIST } from '../create-task/DATA';
-import { Subscription } from 'rxjs';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Task } from '../../../data/interface';
+import { TABLE_HEAD, TABLE_COLUMNS, MONTH_LIST } from '../../../data/DATA';
+
 import { MyserviceService } from 'src/app/services/myservice.service';
+import { LocalStorageService } from 'src/app/services/local-storage.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-to-do',
@@ -10,13 +12,21 @@ import { MyserviceService } from 'src/app/services/myservice.service';
   styleUrls: ['./to-do.component.css'],
 })
 export class ToDoComponent implements OnInit {
-  toDoTasks: Task[] = JSON.parse(localStorage.getItem('Task List')!);
+  toDoTasks!: Task[];
   tableHead: string[] = TABLE_HEAD;
   tableColumns: string[] = TABLE_COLUMNS;
 
-  constructor() {}
+  subscriptionLocalStorage!: Subscription;
 
-  ngOnInit(): void {}
+  constructor(private toDo: LocalStorageService) {}
 
-  test() {}
+  ngOnInit(): void {
+    this.subscriptionLocalStorage = this.toDo.currentStorageState.subscribe(
+      (store) => (this.toDoTasks = store)
+    );
+  }
+
+  ngOnDestroy() {
+    this.subscriptionLocalStorage.unsubscribe();
+  }
 }

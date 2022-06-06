@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { PRIO_BUTTONS } from 'src/app/pages/create-task/DATA';
-import { PrioButtons } from 'src/app/pages/create-task/interface';
+import { PRIO_BUTTONS } from 'src/data/DATA';
+import { PrioButtons } from '../../../data/interface';
 import { PrioButtonsService } from 'src/app/services/prio-buttons.service';
 
 @Component({

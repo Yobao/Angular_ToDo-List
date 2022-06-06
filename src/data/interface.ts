@@ -4,6 +4,7 @@ export interface Task {
   date: any;
   priority: string;
   priorityNumber: number | null;
+  isActive: boolean;
   [key: string]: any;
 }
 

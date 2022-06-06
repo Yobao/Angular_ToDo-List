@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { PRIO_BUTTONS } from '../pages/create-task/DATA';
-import { PrioButtons } from '../pages/create-task/interface';
+import { PRIO_BUTTONS } from '../../data/DATA';
+import { PrioButtons } from '../../data/interface';
 
 @Injectable({
   providedIn: 'root',
