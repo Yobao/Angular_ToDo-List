@@ -5,6 +5,7 @@ import { MONTH_DAY, MONTH_LIST, INPUTS } from '../../../data/DATA';
 import { Task, Month, PrioButtons, Inputs } from '../../../data/interface';
 import { MyserviceService } from 'src/app/services/myservice.service';
 import { PrioButtonsService } from 'src/app/services/prio-buttons.service';
+import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -16,7 +17,7 @@ export class CreateTaskComponent implements OnInit, OnDestroy {
   taskName?: string;
   taskDesc?: string;
   i!: number;
-  tasks: any;
+  tasks!: Task[];
   days!: number | string;
   defaultMonth!: string;
   defaultDay!: number;
@@ -31,6 +32,7 @@ export class CreateTaskComponent implements OnInit, OnDestroy {
   date!: Date;
   subscriptionDate!: Subscription;
   subscriptionPrioButtons!: Subscription;
+  subscriptionLocalStorage!: Subscription;
 
   priorityButtons!: PrioButtons;
 
@@ -38,7 +40,8 @@ export class CreateTaskComponent implements OnInit, OnDestroy {
 
   constructor(
     private dataDate: MyserviceService,
-    private dataPrioButtons: PrioButtonsService
+    private dataPrioButtons: PrioButtonsService,
+    private dataLocalStorage: LocalStorageService
   ) {}
 
   ngOnInit(): void {
@@ -60,11 +63,17 @@ export class CreateTaskComponent implements OnInit, OnDestroy {
       this.dataPrioButtons.currentButtonState.subscribe(
         (data) => (this.priorityButtons = data)
       );
+
+    this.subscriptionLocalStorage =
+      this.dataLocalStorage.currentStorageState.subscribe(
+        (storage) => (this.tasks = storage)
+      );
   }
 
   ngOnDestroy(): void {
     this.subscriptionDate.unsubscribe();
     this.subscriptionPrioButtons.unsubscribe();
+    this.subscriptionLocalStorage.unsubscribe();
   }
 
   handleUpdateDays(e: string): void {
@@ -116,13 +125,8 @@ export class CreateTaskComponent implements OnInit, OnDestroy {
       priorityNumber: this.priorityButtons.activeNumber,
       isActive: false,
     };
-    if (!localStorage.getItem('Task List')) {
-      return localStorage.setItem('Task List', JSON.stringify([this.task]));
-    }
 
-    this.tasks = JSON.parse(localStorage.getItem('Task List')!);
-    this.tasks.push(this.task);
-    localStorage.setItem('Task List', JSON.stringify(this.tasks));
+    this.dataLocalStorage.addTask(this.task);
     this.clearInputs();
     alert('Task has been successfully created and moved into ToDo list.');
   }

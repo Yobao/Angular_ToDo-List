@@ -51,6 +51,16 @@ export class TableComponent implements OnInit, OnDestroy {
 
   private customSort = (arr: any, sortBy: string) => {
     return arr.sort((a: any, b: any) => {
+      if (a[sortBy] === b[sortBy]) {
+        return this.isSortAscending
+          ? a.priorityNumber > b.priorityNumber
+            ? 1
+            : -1
+          : a.priorityNumber > b.priorityNumber
+          ? -1
+          : 1;
+      }
+
       return this.isSortAscending
         ? a[sortBy] > b[sortBy]
           ? 1
@@ -101,8 +111,12 @@ export class TableComponent implements OnInit, OnDestroy {
 
   handleUnderline(e: Event) {
     const target = e.target as HTMLInputElement;
-    if (this.previousActive !== undefined)
-      this.taskArray[this.previousActive].isActive = false;
+    if (this.previousActive !== undefined) {
+      for (let i: number = 0; i < this.taskArray.length; i++) {
+        if (this.taskArray[i].isActive === true)
+          this.taskArray[i].isActive = false;
+      }
+    }
 
     this.previousActive =
       target.tagName === 'INPUT'
@@ -117,11 +131,3 @@ export class TableComponent implements OnInit, OnDestroy {
     this.storageData.clearUnderline();
   }
 }
-
-/* 
-Add new array into LocalStorageService 
-  - info about which row should be highlighted by id number ??? 
-PROBLEM - what about id of deleted elemnt ? should all be deleted ? 
-  - approach indexOf(taskName) not efficient...
-Maybe dynamically saving row index ????
-*/
